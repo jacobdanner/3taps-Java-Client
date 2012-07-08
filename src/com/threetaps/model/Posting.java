@@ -15,6 +15,7 @@ public class Posting {
 	
 	private Float longitude;
 	private Float latitude;
+  private String[] images;
 	
 	private String language;
 	
@@ -82,7 +83,17 @@ public class Posting {
 		return location;
 	}
 
-	public void setLocation(String location) {
+  public String[] getImages()
+  {
+    return images;
+  }
+
+  public void setImages(String[] images)
+  {
+    this.images = images;
+  }
+
+  public void setLocation(String location) {
 		this.location = location;
 	}
 
