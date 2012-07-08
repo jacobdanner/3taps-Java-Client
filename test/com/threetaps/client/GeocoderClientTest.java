@@ -11,12 +11,12 @@ import org.junit.Test;
 import com.threetaps.dto.geocoder.GeocoderRequest;
 import com.threetaps.dto.geocoder.GeocoderResponse;
 
-public class GeocoderClientTest extends TestCase {
+public class GeocoderClientTest extends BaseTestCase {
 	
 	protected GeocoderClient geocoderClient;
 	
 	protected void setUp() {
-		geocoderClient = ThreetapsClient.getInstance().setAuthID("jmrfhu59cnmtnzusshd62pbg").getGeocoderClient();		
+		geocoderClient = ThreetapsClient.getInstance().setAuthID(API_KEY).getGeocoderClient();
 	}	
 
 	@Test

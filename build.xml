@@ -1,60 +1,72 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project basedir="." default="jar" name="threetaps">
 
-    <property name="build" value="${basedir}/bin"/>
-    <property name="distrib.dir" value="${basedir}/distrib"/>
-    <property name="source.dir" value="${basedir}/src"/>
-    <property name="doc.dir" value="${basedir}/doc"/>
-    <property name="test.dir" value="${basedir}/test"/>
-    <property name="build.test.dir" value="${build}/test"/>
-    <property name="build.test.report.dir" value="${build}/report"/>
-    <property name="lib.dir" value="${basedir}/lib"/>
+  <property environment="env"/>
+  <property name="build" value="${basedir}/bin"/>
+  <property name="distrib.dir" value="${basedir}/distrib"/>
+  <property name="source.dir" value="${basedir}/src"/>
+  <property name="doc.dir" value="${basedir}/doc"/>
+  <property name="test.dir" value="${basedir}/test"/>
+  <property name="build.test.dir" value="${build}/test"/>
+  <property name="build.test.report.dir" value="${build}/report"/>
+  <property name="lib.dir" value="${basedir}/lib"/>
 
-    <property name="distrib.threetaps.jar" value="${distrib.dir}/threetaps.jar"/>
-    <path id="lib.path">
-        <fileset dir="lib">
-            <include name="**/*.jar"/>
+  <property name="distrib.threetaps.jar" value="${distrib.dir}/threetaps.jar"/>
+  <path id="lib.path">
+    <fileset dir="lib">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>
+
+  <path id="3taps.lib.path">
+    <path refid="lib.path"/>
+    <pathelement location="${distrib.threetaps.jar}"/>
+  </path>
+
+  <target name="cleanup">
+    <delete dir="${build}"/>
+    <mkdir dir="${build}"/>
+    <delete file="${distrib.threetaps.jar}"/>
+  </target>
+
+  <target name="build" depends="cleanup">
+    <javac srcdir="${source.dir}" destdir="${build}" source="1.5" classpathref="lib.path"/>
+  </target>
+
+  <target name="jar" depends="build">
+    <jar destfile="${distrib.threetaps.jar}" basedir="${build}" excludes="**/test/*"/>
+  </target>
+
+  <target name="javadoc" depends="build">
+    <javadoc sourcepath="${source.dir}" destdir="${doc.dir}"/>
+  </target>
+
+  <target name="get.api.key">
+    <condition property="3taps.api.key" value="${env.3TAPS_API_KEY}">
+      <isset property="${env.3TAPS_API_KEY}"/>
+    </condition>
+    <condition property="3taps.api.key" value="${local.api.key}">
+      <isset property="local.api.key"/>
+    </condition>
+  </target>
+
+  <target name="test" depends="jar, get.api.key">
+    <mkdir dir="${build.test.dir}"/>
+    <mkdir dir="${build.test.report.dir}"/>
+    <javac srcdir="${test.dir}" destdir="${build.test.dir}" classpathref="3taps.lib.path"/>
+    <junit fork="yes" printsummary="yes" haltonfailure="yes" showoutput="yes">
+      <jvmarg value="-ea"/>
+      <jvmarg value="3TAPS_API_KEY=${3taps.api.key}"/>
+      <classpath>
+        <pathelement location="${build.test.dir}"/>
+        <path refid="3taps.lib.path"/>
+      </classpath>
+      <formatter type="plain"/>
+      <batchtest fork="yes" todir="${build.test.report.dir}">
+        <fileset dir="${test.dir}">
+          <include name="**/*Test*.java"/>
         </fileset>
-    </path>
-
-    <path id="3taps.lib.path">
-        <path refid="lib.path"/>
-        <pathelement location="${distrib.threetaps.jar}"/>
-    </path>
-
-    <target name="cleanup">
-        <delete dir="${build}"/>
-        <mkdir dir="${build}"/>
-        <delete file="${distrib.threetaps.jar}"/>
-    </target>
-
-    <target name="build" depends="cleanup">
-        <javac srcdir="${source.dir}" destdir="${build}" source="1.5" classpathref="lib.path"/>
-    </target>
-
-    <target name="jar" depends="build">
-        <jar destfile="${distrib.threetaps.jar}" basedir="${build}" excludes="**/test/*"/>
-    </target>
-
-    <target name="javadoc" depends="build">
-        <javadoc sourcepath="${source.dir}" destdir="${doc.dir}"/>
-    </target>
-    <target name="test" depends="jar">
-        <mkdir dir="${build.test.dir}"/>
-        <mkdir dir="${build.test.report.dir}"/>
-        <javac srcdir="${test.dir}" destdir="${build.test.dir}" classpathref="3taps.lib.path" />
-        <junit fork="yes" printsummary="yes" haltonfailure="yes" showoutput="yes">
-            <jvmarg value="-ea"/>
-            <classpath>
-                <pathelement location="${build.test.dir}"/>
-                <path refid="3taps.lib.path"/>
-            </classpath>
-            <formatter type="plain"/>
-            <batchtest fork="yes" todir="${build.test.report.dir}">
-                <fileset dir="${test.dir}">
-                    <include name="**/*Test*.java"/>
-                </fileset>
-            </batchtest>
-        </junit>
-    </target>
+      </batchtest>
+    </junit>
+  </target>
 </project>

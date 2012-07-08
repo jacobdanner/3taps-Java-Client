@@ -16,181 +16,257 @@ import com.threetaps.util.Constants;
 import com.threetaps.util.Utils;
 import com.windriver.gson.extension.GeneralObjectDeserializer;
 
-public class SearchRequest implements QueryRequest {
+public class SearchRequest implements QueryRequest
+{
+  /**
+   * The number of results to return per page. Default is 100.
+   */
+  private Integer rpp;
+  /**
+   * The page number of results to return, where 0 is the
+   * first page of results. Default is 0.
+   */
+  private Integer page;
+  /**
+   * 5-character code reprepresenting the source that
+   * postings must be associated with to be found/processed.
+   * Multiple sources may be specified by passing in
+   * multiple source codes, separated by +OR+.
+   */
+  private String source;
+  /**
+   * 4-character code representing the category that postings must be
+   * associated with to be found/processed. Multiple categories may be
+   * specified by passing in multiple category codes, separated by +OR+.
+   */
+  private String category;
+  private String location;
+  private String heading;
+  private String body;
+  private String text;
+  private String externalID;
+  private Date start;
+  private Date end;
+  private Map<String, String> annotations;
+  private Map<String, String> trustedAnnotations;
+  private List<String> retvals = new ArrayList<String>();
 
-	private Integer rpp;
-	private Integer page;
-	private String source;
-	private String category;
-	private String location;
-	private String heading;
-	private String body;
-	private String text;
-	private String externalID;
-	private Date start;
-	private Date end;
-	private Map<String, String> annotations;
-	private Map<String, String> trustedAnnotations;
-	private List<String> retvals = new ArrayList<String>();
+  public Integer getRpp()
+  {
+    return rpp;
+  }
 
-	public Integer getRpp() {
-		return rpp;
-	}
+  public void setRpp(Integer rpp)
+  {
+    this.rpp = rpp;
+  }
 
-	public void setRpp(Integer rpp) {
-		this.rpp = rpp;
-	}
+  public Integer getPage()
+  {
+    return page;
+  }
 
-	public Integer getPage() {
-		return page;
-	}
+  public void setPage(Integer page)
+  {
+    this.page = page;
+  }
 
-	public void setPage(Integer page) {
-		this.page = page;
-	}
+  public String getSource()
+  {
+    return source;
+  }
 
-	public String getSource() {
-		return source;
-	}
+  public void setSource(String source)
+  {
+    this.source = source;
+  }
 
-	public void setSource(String source) {
-		this.source = source;
-	}
+  public String getCategory()
+  {
+    return category;
+  }
 
-	public String getCategory() {
-		return category;
-	}
+  public void setCategory(String category)
+  {
+    this.category = category;
+  }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+  public String getLocation()
+  {
+    return location;
+  }
 
-	public String getLocation() {
-		return location;
-	}
+  public void setLocation(String location)
+  {
+    this.location = location;
+  }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+  public String getHeading()
+  {
+    return heading;
+  }
 
-	public String getHeading() {
-		return heading;
-	}
+  public void setHeading(String heading)
+  {
+    this.heading = heading;
+  }
 
-	public void setHeading(String heading) {
-		this.heading = heading;
-	}
+  public String getBody()
+  {
+    return body;
+  }
 
-	public String getBody() {
-		return body;
-	}
+  public void setBody(String body)
+  {
+    this.body = body;
+  }
 
-	public void setBody(String body) {
-		this.body = body;
-	}
-	
-	public String getText() {
-		return text;
-	}
+  public String getText()
+  {
+    return text;
+  }
 
-	public void setText(String text) {
-		this.text = text;
-	}	
+  public void setText(String text)
+  {
+    this.text = text;
+  }
 
-	public String getExternalID() {
-		return externalID;
-	}
+  public String getExternalID()
+  {
+    return externalID;
+  }
 
-	public void setExternalID(String externalID) {
-		this.externalID = externalID;
-	}
+  public void setExternalID(String externalID)
+  {
+    this.externalID = externalID;
+  }
 
-	public Date getStart() {
-		return start;
-	}
+  public Date getStart()
+  {
+    return start;
+  }
 
-	public void setStart(Date start) {
-		this.start = start;
-	}
+  public void setStart(Date start)
+  {
+    this.start = start;
+  }
 
-	public Date getEnd() {
-		return end;
-	}
+  public Date getEnd()
+  {
+    return end;
+  }
 
-	public void setEnd(Date end) {
-		this.end = end;
-	}
+  public void setEnd(Date end)
+  {
+    this.end = end;
+  }
 
-	public Map<String, String> getAnnotations() {
-		return annotations;
-	}
+  public Map<String, String> getAnnotations()
+  {
+    return annotations;
+  }
 
-	public void setAnnotations(Map<String, String> annotations) {
-		this.annotations = annotations;
-	}
+  public void setAnnotations(Map<String, String> annotations)
+  {
+    this.annotations = annotations;
+  }
 
-	public Map<String, String> getTrustedAnnotations() {
-		return trustedAnnotations;
-	}
+  public Map<String, String> getTrustedAnnotations()
+  {
+    return trustedAnnotations;
+  }
 
-	public void setTrustedAnnotations(Map<String, String> trustedAnnotations) {
-		this.trustedAnnotations = trustedAnnotations;
-	}
+  public void setTrustedAnnotations(Map<String, String> trustedAnnotations)
+  {
+    this.trustedAnnotations = trustedAnnotations;
+  }
 
-	public List<String> getRetvals() {
-		return retvals;
-	}
+  public List<String> getRetvals()
+  {
+    return retvals;
+  }
 
-	public void setRetvals(List<String> retvals) {
-		this.retvals = retvals;
-	}
-	
-	public void addRetval(String retval) {
-		this.retvals.add(retval);
-	}
+  public void setRetvals(List<String> retvals)
+  {
+    this.retvals = retvals;
+  }
 
-	public Map<String, String> getQueryParams() {
-		final Map<String, String> queryParams = new HashMap<String, String>();
+  public void addRetval(String retval)
+  {
+    this.retvals.add(retval);
+  }
 
-		if (rpp != null)
-			queryParams.put("rpp", rpp.toString());
-		if (page != null)
-			queryParams.put("page", page.toString());
-		if (source != null)
-			queryParams.put("source", source);
-		if (category != null)
-			queryParams.put("category", category);
-		if (location != null)
-			queryParams.put("location", location);
-		if (heading != null)
-			queryParams.put("heading", heading);
-		if (body != null)
-			queryParams.put("body", body);
-		if (text != null)
-			queryParams.put("text", text);		
-		if (externalID != null)
-			queryParams.put("externalID", externalID);
+  public Map<String, String> getQueryParams()
+  {
+    final Map<String, String> queryParams = new HashMap<String, String>();
 
-		DateFormat df = new SimpleDateFormat(Constants.DATE_FORMAT);
+    if (rpp != null)
+    {
+      queryParams.put("rpp", rpp.toString());
+    }
+    if (page != null)
+    {
+      queryParams.put("page", page.toString());
+    }
+    if (source != null)
+    {
+      queryParams.put("source", source);
+    }
+    if (category != null)
+    {
+      queryParams.put("category", category);
+    }
+    if (location != null)
+    {
+      queryParams.put("location", location);
+    }
+    if (heading != null)
+    {
+      queryParams.put("heading", heading);
+    }
+    if (body != null)
+    {
+      queryParams.put("body", body);
+    }
+    if (text != null)
+    {
+      queryParams.put("text", text);
+    }
+    if (externalID != null)
+    {
+      queryParams.put("externalID", externalID);
+    }
 
-		if (start != null)
-			queryParams.put("start", df.format(start));
-		if (end != null)
-			queryParams.put("end", df.format(end));
+    DateFormat df = new SimpleDateFormat(Constants.DATE_FORMAT);
 
-		final Type annotationType = new TypeToken<Map<String, String>>() {}.getType();
-		final Gson gson = new GsonBuilder()
-			.registerTypeAdapter(Map.class, new GeneralObjectDeserializer())
-			.create();
+    if (start != null)
+    {
+      queryParams.put("start", df.format(start));
+    }
+    if (end != null)
+    {
+      queryParams.put("end", df.format(end));
+    }
 
-		if (annotations != null && annotations.size() > 0)
-			queryParams.put("annotations", gson.toJson(annotations, annotationType));
+    final Type annotationType = new TypeToken<Map<String, String>>()
+    {
+    }.getType();
+    final Gson gson = new GsonBuilder()
+        .registerTypeAdapter(Map.class, new GeneralObjectDeserializer())
+        .create();
 
-		if (trustedAnnotations != null && trustedAnnotations.size() > 0)
-			queryParams.put("trustedAnnotations", gson.toJson(trustedAnnotations, annotationType));
-		
-		queryParams.put("retvals", Utils.join(retvals));
+    if (annotations != null && annotations.size() > 0)
+    {
+      queryParams.put("annotations", gson.toJson(annotations, annotationType));
+    }
 
-		return queryParams;
-	}
+    if (trustedAnnotations != null && trustedAnnotations.size() > 0)
+    {
+      queryParams.put("trustedAnnotations", gson.toJson(trustedAnnotations, annotationType));
+    }
+
+    queryParams.put("retvals", Utils.join(retvals));
+
+    return queryParams;
+  }
 }

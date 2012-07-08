@@ -15,12 +15,12 @@ import com.threetaps.dto.posting.UpdateResponse;
 import com.threetaps.model.Posting;
 
 
-public class PostingClientTest extends TestCase {
+public class PostingClientTest extends BaseTestCase {
 	
 	protected PostingClient postingClient;
 	
 	protected void setUp() {
-		postingClient = ThreetapsClient.getInstance().setAuthID("jmrfhu59cnmtnzusshd62pbg").getPostingClient();
+		postingClient = ThreetapsClient.getInstance().setAuthID(API_KEY).getPostingClient();
 	}
 	
 	@Test

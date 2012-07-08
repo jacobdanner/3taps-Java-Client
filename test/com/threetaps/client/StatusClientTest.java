@@ -11,12 +11,12 @@ import org.junit.Test;
 import com.threetaps.model.Message;
 import com.threetaps.model.Posting;
 
-public class StatusClientTest extends TestCase {
+public class StatusClientTest extends BaseTestCase {
 	
 	protected StatusClient statusClient;
 	
 	protected void setUp() {
-		statusClient = ThreetapsClient.getInstance().setAuthID("jmrfhu59cnmtnzusshd62pbg").getStatusClient();		
+		statusClient = ThreetapsClient.getInstance().setAuthID(API_KEY).getStatusClient();
 	}	
 
 	@Test

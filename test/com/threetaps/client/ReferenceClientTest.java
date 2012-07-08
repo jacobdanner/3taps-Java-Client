@@ -11,12 +11,12 @@ import com.threetaps.model.Category;
 import com.threetaps.model.Location;
 import com.threetaps.model.Source;
 
-public class ReferenceClientTest extends TestCase {
+public class ReferenceClientTest extends BaseTestCase {
 	
 	protected ReferenceClient referenceClient;
 	
 	protected void setUp() {
-		referenceClient = ThreetapsClient.getInstance().setAuthID("jmrfhu59cnmtnzusshd62pbg").getReferenceClient();		
+		referenceClient = ThreetapsClient.getInstance().setAuthID(API_KEY).getReferenceClient();
 	}	
 
 	@Test

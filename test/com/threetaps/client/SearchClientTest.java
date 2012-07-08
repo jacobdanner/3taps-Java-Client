@@ -15,12 +15,12 @@ import com.threetaps.dto.search.SummaryRequest;
 import com.threetaps.dto.search.SummaryResponse;
 
 
-public class SearchClientTest extends TestCase {
+public class SearchClientTest extends BaseTestCase {
 	
 	protected SearchClient searchClient;
 	
 	protected void setUp() {
-		searchClient = ThreetapsClient.getInstance().setAuthID("jmrfhu59cnmtnzusshd62pbg").getSearchClient();
+		searchClient = ThreetapsClient.getInstance().setAuthID(API_KEY).getSearchClient();
 	}
 	
 	@Test
